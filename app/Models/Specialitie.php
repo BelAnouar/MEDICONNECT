@@ -9,4 +9,10 @@ class Specialitie extends Model
 {
     use HasFactory;
     protected $fillable = ["name"];
+
+
+    public function doctors()
+    {
+        $this->hasMany(Doctor::class, "specialitie_id");
+    }
 }

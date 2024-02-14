@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users', 'id');
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id');
             $table->foreignId('doctor_id')->constrained('doctors', 'id');
-
+            $table->dateTime('appointment_time');
+            $table->integer('status')->default(403);
             $table->string('cancel_appointment')->default(false);
             $table->timestamps();
         });

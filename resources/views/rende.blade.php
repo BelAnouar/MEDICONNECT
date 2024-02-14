@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    {{$doctors}}
     <div
         class="z-[2] w-full my-auto mx-0 h-16 md:px-[90px] px-8 py-16 flex items-center justify-between bg-[#141b2b]  top-[20px]">
         <span class="text-white text-[28px] font-semibold">Logo.</span>
@@ -94,14 +95,19 @@
                         </svg>
                         5.0
                     </p>
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
+                    <form action="{{ route('favorite.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" value="1" name="docter_id">
+                        <button type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
 
-                    </button>
+                        </button>
+                    </form>
+
                 </div>
                 {{-- <div class="flex items-center mb-4">
                 <div class="flex-shrink-0"> <img class="w-12 h-12" src="heart-icon.png" alt="Heart icon"> </div>
@@ -112,12 +118,16 @@
                 </div>
                </div> --}}
                 <div class="text-center ">
-                    <img alt="Tania Andrew"
-                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
-                        class=" block h-[50%] w-[50%] !rounded-full border-4 border-slate-300/45 object-cover object-center mx-auto" />
-
+                    <div class="relative inline-flex">
+                        <img alt="Tania Andrew"
+                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
+                            class=" block h-[50%] w-[50%] !rounded-full border-4 border-slate-300/45 object-cover object-center mx-auto" />
+                        <span
+                            class="absolute min-w-[12px] min-h-[12px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[18%] right-[32%] translate-x-2/4 -translate-y-2/4 bg-green-500 text-white">
+                        </span>
+                    </div>
                     <h2 class="text-lg font-medium leading-7 text-gray-900">HEALTHEX</h2>
-                    <p class="text-base text-gray-600">Laura Reynolds</p>
+                   
                     <p class="text-base text-gray-600">Patient Dashboard</p>
                 </div>
                 <div class="flex justify-around p-2 border-t border-black ">

@@ -48,7 +48,7 @@
                     <div class="w-full">
 
                         <div class="relative px-5 py-8 bg-white border border-gray-400 rounded shadow-md md:px-10">
-                           {{$medicineToEdit}}
+                          
                             <form id="updateMedicineForm{{ $medication->id }}"
                                 action="{{ route('medicine.update', $medication->id) }}" method="POST">
                                 @csrf

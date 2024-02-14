@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\appointmentController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpeciatieController;
@@ -42,3 +43,4 @@ Route::get('/speciality', [SpeciatieController::class, "create"])->name("special
 Route::post('/speciality', [SpeciatieController::class, "store"])->name("speciality.store");
 Route::put('/speciality/{specialitie}', [SpeciatieController::class, "update"])->name("speciality.update");
 Route::delete('/speciality/{specialitie}', [SpeciatieController::class, "destroy"])->name("speciality.destroy");
+Route::post('/favorite', [FavoriteController::class, "store"])->name("favorite.store");

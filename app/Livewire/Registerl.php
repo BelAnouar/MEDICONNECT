@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Doctor;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Livewire\Component;
@@ -74,6 +75,14 @@ class Registerl extends Component
             'role' => $this->role,
             'avatar' => $imagePath ?? null,
         ]);
+
+
+        if ($user->role == "doctor") {
+            Doctor::create([
+                'user_id' => $user->id,
+                'specialitie_id' => 1
+            ]);
+        }
 
 
         $this->reset();
