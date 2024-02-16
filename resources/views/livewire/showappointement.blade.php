@@ -4,11 +4,11 @@
 
         <div>
             <button wire:click="openCommantModal({{ $doctorId }})">comment</button>
-            <form action="{{ route('appointment.store') }}" method="post">
+            {{-- <form action="{{ route('appointment.store') }}" method="post">
                 @csrf
                 <input type="hidden" value="{{ $doctorId }}" name="docter_id">
 
-            </form>
+            </form> --}}
         </div>
         <div>
             <button wire:click="openEditModal({{ $doctorId }})">rend</button>
@@ -93,10 +93,12 @@
               
                             <div class="flex items-center justify-center max-w-lg mx-auto mt-56 mb-4 shadow-lg">
                                 <form wire:submit.prevent="sendCommant" class="w-full max-w-xl px-4 pt-2 bg-white rounded-lg">
-                                    {{$starCount}}
+                                    <input type="hidden"  wire:model="idDoct" name='idDoct'  value="{{$doctorId}}">
+                                    
                                     <div class="flex flex-wrap mb-6 -mx-3">
                                         <h2 class="px-4 pt-3 pb-2 text-lg text-gray-800">Add a new comment</h2>
                                         <div class="w-full px-3 mt-2 mb-2 md:w-full">
+                                        {{$starCount}}
                                             <textarea wire:model="commant" 
                                                 class="w-full h-20 px-3 py-2 font-medium leading-normal placeholder-gray-700 bg-gray-100 border border-gray-400 rounded resize-none focus:outline-none focus:bg-white"
                                                 name="body" placeholder='Type Your Comment' required></textarea>
@@ -113,13 +115,17 @@
                                                 </div>
                                                 
                                             <div class="-mr-1">
-                                                <button               class="px-4 py-1 mr-1 font-medium tracking-wide text-gray-700 bg-white border border-gray-400 rounded-lg hover:bg-gray-100" type="submit">
+                                                <button  wire:loading.attr="disabled"             class="px-4 py-1 mr-1 font-medium tracking-wide text-gray-700 bg-white border border-gray-400 rounded-lg hover:bg-gray-100" >
                                                      Send
                                                 </button>
                                                 
                                             </div>
                                         </div>
                                 </form>
+                            </div>
+
+                            <div>
+                                
                             </div>
                         </div>
 

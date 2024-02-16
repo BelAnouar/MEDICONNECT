@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\appointment;
 use App\Models\comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Showappointement extends Component
@@ -15,15 +16,17 @@ class Showappointement extends Component
     public $commant;
     public $starCount;
     public $doctorId;
+    public $idDoct;
 
     public function mount($doctorId)
     {
         $this->doctorId = $doctorId;
+        $this->idDoct = $doctorId;
     }
     public function render()
     {
         $appointements = appointment::where('doctor_id', $this->doctorId)->get();
-        $commants = comment::with('doctor', 'patient')->where('doctor_id', $this->commantID->doctor_id)->get();
+        $commants = comment::with('doctor', 'patient')->where('DoctorID', $this->doctorId)->get();
         return view('livewire.showappointement', ["appointements" => $appointements, "commants" => $commants]);
     }
 
@@ -55,11 +58,24 @@ class Showappointement extends Component
 
     public function sendCommant()
     {
-        comment::create([
-            'PatientID' => Auth::user()->id,
-            'DoctorID' => $this->commantID->doctor_id,
-            'Rating' => $this->starCount,
-            'Comment' => $this->commant
-        ]);
+
+        if ($this->starCount !== null) {
+
+            Log::info('Sending comment...');
+            comment::create([
+                'PatientID' => Auth::user()->id,
+                'DoctorID' => $this->idDoct,
+                'Rating' => $this->starCount,
+                'Comment' => $this->commant
+            ]);
+    
+            Log::info('Comment sent.');
+            $this->reset(['commant', 'starCount']);
+        } 
+       
+        
+        
+        
+
     }
 }

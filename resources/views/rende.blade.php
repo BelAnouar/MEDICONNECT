@@ -134,6 +134,7 @@
                    
                     <p class="text-base text-gray-600">{{$doctor->user->name}}</p>
                 </div>
+                
                
                 <livewire:showappointement :doctorId="$doctor->id" />
 
