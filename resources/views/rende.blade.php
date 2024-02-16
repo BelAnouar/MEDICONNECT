@@ -83,6 +83,10 @@
     <section class="container p-6">
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 ">
+
+            @foreach ($doctors as $doctor)
+                
+           
             <div class="bg-white border shadow-2xl rounded-3xl">
                 <div class="flex items-center justify-between p-4">
                     <p
@@ -120,42 +124,28 @@
                 <div class="text-center ">
                     <div class="relative inline-flex">
                         <img alt="Tania Andrew"
-                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
-                            class=" block h-[50%] w-[50%] !rounded-full border-4 border-slate-300/45 object-cover object-center mx-auto" />
+                        src='{{ url("storage/{$doctor->user->avatar}") }}' 
+                            class=" block h-[80%] w-[40%] !rounded-full border-4 border-slate-300/45 fit object-cover object-center mx-auto z-10" />
                         <span
                             class="absolute min-w-[12px] min-h-[12px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[18%] right-[32%] translate-x-2/4 -translate-y-2/4 bg-green-500 text-white">
                         </span>
                     </div>
-                    <h2 class="text-lg font-medium leading-7 text-gray-900">HEALTHEX</h2>
+                    <h2 class="text-lg font-medium leading-7 text-gray-900">{{$doctor->specialitie->Name}}</h2>
                    
-                    <p class="text-base text-gray-600">Patient Dashboard</p>
+                    <p class="text-base text-gray-600">{{$doctor->user->name}}</p>
                 </div>
-                <div class="flex justify-around p-2 border-t border-black ">
+               
+                <livewire:showappointement :doctorId="$doctor->id" />
 
-                    <div>
-                        <form action="{{ route('appointment.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" value="1" name="docter_id">
-                            <button>comment</button>
-                        </form>
-                    </div>
-                    <div>
-
-                        <form action="{{ route('appointment.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" value="1" name="docter_id">
-                            <button>render vous</button>
-                        </form>
-                    </div>
-                </div>
-
+                @livewireScripts
             </div>
-            <div class="p-4 bg-white rounded-lg shadow-lg ">
+            @endforeach
+            {{-- <div class="p-4 bg-white rounded-lg shadow-lg ">
                 <div class="flex items-center mb-4">
                     <div class="flex-shrink-0"> <img class="w-12 h-12" src="heart-icon.png" alt="Heart icon"> </div>
                     <div class="ml-4">
-                        <h2 class="text-lg font-medium leading-7 text-gray-900">HEALTHEX</h2>
-                        <p class="text-base text-gray-600">Laura Reynolds</p>
+                        <h2 class="text-lg font-medium leading-7 text-gray-900">{{$doctor->specialitie->Name}}</h2>
+                        <p class="text-base text-gray-600">{{$doctor}}</p>
                         <p class="text-base text-gray-600">Patient Dashboard</p>
                     </div>
                 </div>
@@ -165,9 +155,22 @@
                     <input type="hidden" value="1" name="docter_id">
                     <button>ender vous</button>
                 </form>
-            </div>
+            </div> --}}
         </div>
     </section>
+
+  <script>
+
+    function handleStarClick(starr) {
+        var stars = document.querySelectorAll('.starr');
+        var clickedIndex = Array.from(stars).indexOf(starr);
+
+        // Loop through stars
+        for (var i = 0; i <= clickedIndex; i++) {
+            stars[i].classList.add('selected');
+        }
+    }
+    </script>
 </body>
 
 </html>

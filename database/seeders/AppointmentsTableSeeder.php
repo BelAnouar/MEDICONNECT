@@ -17,16 +17,24 @@ class AppointmentsTableSeeder extends Seeder
         $appointments = [
             [
 
-                'doctor_id' => 1,
-                'appointment_time' => Carbon::now()->addDays(3), // Example: Set appointment time 3 days from now
-                'cancel_appointment' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'doctor_id' => 1,  // Replace with actual doctor ID
+                'date' => now()->addDays(1)->toDateString(),
+                'start_time' => '12:00:00',
+                'end_time' => '13:00:00',
+                'status' => 'available',
+            ],
+            [
+
+                'doctor_id' => 1,  // Replace with actual doctor ID
+                'date' => now()->addDays(2)->toDateString(),
+                'start_time' => '15:00:00',
+                'end_time' => '16:00:00',
+                'status' => 'available',
             ],
             // Add more appointments as needed
         ];
 
-        // Insert data into the appointments table
+        // Insert the seed data into the appointments table
         DB::table('appointments')->insert($appointments);
     }
 }

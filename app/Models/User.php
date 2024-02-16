@@ -43,4 +43,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function doctors()
+    {
+        $this->hasMany(Doctor::class, "user_id");
+    }
+
+
+    public function comments()
+    {
+        $this->hasMany(comment::class, "PatientID");
+    }
 }

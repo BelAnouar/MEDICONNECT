@@ -11,7 +11,9 @@ class appointmentController extends Controller
 {
     public function index()
     {
-        $doctors = Doctor::with('specialitie')->get();
+
+        $doctors = Doctor::with('specialitie', 'user')->get();
+
         return view('rende', ['doctors' => $doctors]);
     }
     public function store(Request $request)

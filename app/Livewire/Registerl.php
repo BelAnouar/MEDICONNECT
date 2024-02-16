@@ -64,7 +64,8 @@ class Registerl extends Component
 
         // Handle image upload
         if ($this->avatar) {
-            $imagePath =  $this->avatar->store('photos');
+            // $imagePath =  $this->avatar->store('photos');
+            $imagePath =  $this->avatar->store('profile_images', 'public');
         }
 
         // Save user data

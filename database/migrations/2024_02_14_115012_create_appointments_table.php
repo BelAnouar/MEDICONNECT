@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users', 'id');
             $table->foreignId('doctor_id')->constrained('doctors', 'id');
-            $table->dateTime('appointment_time');
-            $table->integer('status')->default(403);
-            $table->string('cancel_appointment')->default(false);
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->enum('status', ['available', 'taken'])->default('available');
             $table->timestamps();
         });
     }
