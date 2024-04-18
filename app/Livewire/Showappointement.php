@@ -68,14 +68,9 @@ class Showappointement extends Component
                 'Rating' => $this->starCount,
                 'Comment' => $this->commant
             ]);
-    
+
             Log::info('Comment sent.');
             $this->reset(['commant', 'starCount']);
-        } 
-       
-        
-        
-        
-
+        }
     }
 }

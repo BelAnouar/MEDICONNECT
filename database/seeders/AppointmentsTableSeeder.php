@@ -17,7 +17,7 @@ class AppointmentsTableSeeder extends Seeder
         $appointments = [
             [
 
-                'doctor_id' => 1,  // Replace with actual doctor ID
+                'doctor_id' => 2,
                 'date' => now()->addDays(1)->toDateString(),
                 'start_time' => '12:00:00',
                 'end_time' => '13:00:00',
@@ -25,16 +25,16 @@ class AppointmentsTableSeeder extends Seeder
             ],
             [
 
-                'doctor_id' => 1,  // Replace with actual doctor ID
+                'doctor_id' => 2,
                 'date' => now()->addDays(2)->toDateString(),
                 'start_time' => '15:00:00',
                 'end_time' => '16:00:00',
                 'status' => 'available',
             ],
-            // Add more appointments as needed
+
         ];
 
-        // Insert the seed data into the appointments table
+
         DB::table('appointments')->insert($appointments);
     }
 }

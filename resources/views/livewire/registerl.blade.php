@@ -1,5 +1,4 @@
 <div>
-    {{ $currentStep }}
     <h2 class="mb-4 text-3xl font-semibold">Register</h2>
     <p class="mb-3 font-light">
         Create your account
@@ -10,16 +9,16 @@
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input wire:model="name" id="name" class="block w-full mt-1" type="text" name="name" :value="old('name') "
-                    required autofocus autocomplete="name" />
+                <x-text-input wire:model="name" id="name" class="block w-full mt-1" type="text" name="name"
+                    :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input wire:model="email" id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')"
-                    required autocomplete="username" />
+                <x-text-input wire:model="email" id="email" class="block w-full mt-1" type="email" name="email"
+                    :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
@@ -27,8 +26,8 @@
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
 
-                <x-text-input wire:model="password" id="password" class="block w-full mt-1" type="password" name="password" required
-                    autocomplete="new-password" />
+                <x-text-input wire:model="password" id="password" class="block w-full mt-1" type="password"
+                    name="password" required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -86,13 +85,35 @@
                 </div>
             </div>
         @endif
+
         @if ($currentStep == 3)
-            <label for="role">Choose Role:</label>
-            <select wire:model="role" name="role" id="role">
-                <option value="doctor">Doctor</option>
-                <option value="patient">Patient</option>
-            </select>
+
+            <div>
+                <label for="role">Choose Role:</label>
+                <select id="role" name="role" onchange="handleRoleChange(this)">
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+
+
+
+            </div>
+
+
+
+            <div id="specialites" class="hidden ">
+                <label for="specialite">Choose Speciality:</label>
+                <select wire:model="specialite" name="specialite" id="specialite">
+                    @foreach ($specialities as $specialitie)
+                        <option value="{{ $specialitie->id }}">{{ $specialitie->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+
+
         @endif
+
         <div class="flex items-center justify-end gap-2 mt-4">
             <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('login') }}">
@@ -100,7 +121,7 @@
             </a>
 
 
-            @if ($currentStep == 2 || $currentStep == 3 )
+            @if ($currentStep == 2 || $currentStep == 3)
                 <button type="button" wire:click="decreaseStep()"
                     class="relative w-16 h-8 overflow-hidden text-lg font-bold text-white bg-green-500 rounded-lg group">
                     Back
@@ -110,7 +131,7 @@
                 </button>
             @endif
 
-            @if ($currentStep == 1 || $currentStep == 2 )
+            @if ($currentStep == 1 || $currentStep == 2)
                 <button type="button" wire:click="increaseStep()"
                     class="relative w-16 h-8 overflow-hidden text-lg font-bold text-white bg-green-500 rounded-lg group">
                     Next
@@ -125,8 +146,19 @@
                 </x-primary-button>
             @endif
 
-           
+
         </div>
 
     </form>
+    <script>
+        function handleRoleChange(selectElement) {
+            var selectedRole = selectElement.value;
+
+            const specialitesSelect = document.getElementById("specialites")
+            if (selectedRole == "doctor") {
+                specialitesSelect.classList.remove('hidden');
+            }
+          
+        }
+    </script>
 </div>

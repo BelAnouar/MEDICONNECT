@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\appointment;
+use App\Models\Doctor;
+use App\Models\favorite;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -12,7 +17,10 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $doctor_id = Doctor::where('user_id', 1)->first();
+
+        $patients = appointment::with("patient")->where("doctor_id", $doctor_id->id)->get();
+        return   view("patient.index", ["patients" => $patients]);
     }
 
     /**
@@ -34,9 +42,11 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Patient $patient)
+    public function show($id)
     {
-        //
+
+        $patient = User::find($id);
+        return view('patient.show', ['patient' => $patient]);
     }
 
     /**

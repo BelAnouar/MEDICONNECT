@@ -10,11 +10,17 @@ class appointment extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'doctor_id', 'status'
+        'doctor_id',
+        'status'
     ];
 
     public function doctor()
     {
-        $this->belongsTo(Doctor::class, 'id');
+        return $this->belongsTo(Doctor::class, 'doctor_id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

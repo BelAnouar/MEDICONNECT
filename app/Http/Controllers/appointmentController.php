@@ -12,7 +12,7 @@ class appointmentController extends Controller
     public function index()
     {
 
-        $doctors = Doctor::with('specialitie', 'user')->get();
+        $doctors = Doctor::with('specialitie', 'user', 'favorites')->withAvgRating()->get();
 
         return view('rende', ['doctors' => $doctors]);
     }

@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', 'avatar'
+        'role', 'avatar',
     ];
 
     /**
@@ -53,6 +53,19 @@ class User extends Authenticatable
 
     public function comments()
     {
-        $this->hasMany(comment::class, "PatientID");
+        return $this->hasMany(Comment::class, 'PatientID');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(favorite::class, 'user_id');
+    }
+    public function appointments()
+    {
+        return $this->hasMany(appointment::class, "user_id");
+    }
+    public function MedicalCertificate()
+    {
+        return $this->hasMany(MedicalCertificate::class, 'PatientID');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Doctor;
+use App\Models\Specialitie;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Livewire\Component;
@@ -17,13 +18,18 @@ class Registerl extends Component
     public $password;
     public $password_confirmation;
     public $avatar;
+    public $value;
     public $role;
+    public $specialite;
+
+
+
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users',
         'password' => 'required|string|min:8|confirmed',
-        'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the allowed file types and size
+        'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         'role' => 'required|in:doctor,patient',
     ];
 
@@ -33,9 +39,12 @@ class Registerl extends Component
         $this->currentStep = 1;
     }
 
+
     public function render()
     {
-        return view('livewire.registerl');
+        $specialities = Specialitie::all();
+
+        return view('livewire.registerl', ['specialities' => $specialities]);
     }
 
 
@@ -62,13 +71,14 @@ class Registerl extends Component
     {
 
 
-        // Handle image upload
+
         if ($this->avatar) {
-            // $imagePath =  $this->avatar->store('photos');
+
             $imagePath =  $this->avatar->store('profile_images', 'public');
         }
 
-        // Save user data
+
+
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -81,7 +91,7 @@ class Registerl extends Component
         if ($user->role == "doctor") {
             Doctor::create([
                 'user_id' => $user->id,
-                'specialitie_id' => 1
+                'specialitie_id' => $this->specialite
             ]);
         }
 

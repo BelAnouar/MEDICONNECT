@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    public function index()
+    {
+        $favorites = Favorite::with('doctor', 'doctor.user', 'doctor.specialitie')
+            ->where("user_id", Auth::user()->id)
+            ->get();
+
+
+        return view('favorite.index', ["favorites" => $favorites]);
+    }
 
     public function store(Request $request)
     {
@@ -15,5 +24,7 @@ class FavoriteController extends Controller
             'user_id' => Auth::user()->id,
             'doctor_id' => $request->docter_id
         ]);
+
+        return redirect()->back();
     }
 }

@@ -12,4 +12,14 @@ class favorite extends Model
         'user_id',
         'doctor_id'
     ];
+
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
+    }
+    public function patient()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

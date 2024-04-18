@@ -1,5 +1,6 @@
 <div>
 
+
     <div class="flex justify-around p-2 border-t border-black ">
 
         <div>
@@ -20,6 +21,7 @@
             </form> --}}
         </div>
     </div>
+    {{ $appointementId }}
     @if ($appointementId)
         <div wire:ignore.self class="z-20 modal fade" tabindex="-1" role="dialog" id="commantModal">
             <div data-theme="light"
@@ -90,42 +92,79 @@
                     <div class="z-20 w-full ">
 
                         <div class="relative z-20 px-5 py-8 bg-white border border-gray-400 rounded shadow-md md:px-10">
-              
+
                             <div class="flex items-center justify-center max-w-lg mx-auto mt-56 mb-4 shadow-lg">
-                                <form wire:submit.prevent="sendCommant" class="w-full max-w-xl px-4 pt-2 bg-white rounded-lg">
-                                    <input type="hidden"  wire:model="idDoct" name='idDoct'  value="{{$doctorId}}">
-                                    
+                                <form wire:submit.prevent="sendCommant"
+                                    class="w-full max-w-xl px-4 pt-2 bg-white rounded-lg">
+                                    <input type="hidden" wire:model="idDoct" name='idDoct'
+                                        value="{{ $doctorId }}">
+
                                     <div class="flex flex-wrap mb-6 -mx-3">
                                         <h2 class="px-4 pt-3 pb-2 text-lg text-gray-800">Add a new comment</h2>
                                         <div class="w-full px-3 mt-2 mb-2 md:w-full">
-                                        {{$starCount}}
-                                            <textarea wire:model="commant" 
+
+                                            <textarea wire:model="commant"
                                                 class="w-full h-20 px-3 py-2 font-medium leading-normal placeholder-gray-700 bg-gray-100 border border-gray-400 rounded resize-none focus:outline-none focus:bg-white"
                                                 name="body" placeholder='Type Your Comment' required></textarea>
                                         </div>
                                         <div class="flex items-start w-full px-3 md:w-full">
                                             <div>
-                                                <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 ">Rating</label>
+                                                <label for="rating"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 ">Rating</label>
                                                 <div class="flex items-center space-x-1">
                                                     @for ($i = 1; $i <= 5; $i++)
-                                                        <input type="radio" id="star{{ $i }}" wire:model="starCount" value="{{ $i }}" class="hidden" />
-                                                        <label for="star{{ $i }}" class="text-xl cursor-pointer starr hover:opacity-100 hover:text-3xl"
+                                                        <input type="radio" id="star{{ $i }}"
+                                                            wire:model="starCount" value="{{ $i }}"
+                                                            class="hidden" />
+                                                        <label for="star{{ $i }}"
+                                                            class="text-xl cursor-pointer starr hover:opacity-100 hover:text-3xl"
                                                             wire:click="handleStarClick({{ $i }})">⭐️</label>
                                                     @endfor
                                                 </div>
-                                                
-                                            <div class="-mr-1">
-                                                <button  wire:loading.attr="disabled"             class="px-4 py-1 mr-1 font-medium tracking-wide text-gray-700 bg-white border border-gray-400 rounded-lg hover:bg-gray-100" >
-                                                     Send
-                                                </button>
-                                                
                                             </div>
+                                            <div class="-mr-1">
+                                                <button wire:loading.attr="disabled"
+                                                    class="px-4 py-1 mr-1 font-medium tracking-wide text-gray-700 bg-white border border-gray-400 rounded-lg hover:bg-gray-100">
+                                                    Send
+                                                </button>
+
+                                            </div>
+
                                         </div>
+                                    </div>
                                 </form>
                             </div>
 
                             <div>
-                                
+                                <ul>
+                                    @foreach ($commants as $commant)
+                                        <li>
+                                            <div class="flex">
+                                                <div class="flex-shrink-0 mr-3">
+                                                    <img class="w-8 h-8 mt-2 rounded-full sm:w-10 sm:h-10"
+                                                        src="storage/{{ url($commant->patient->avatar) }}"
+                                                        alt="">
+                                                </div>
+                                                <div
+                                                    class="flex-1 px-4 py-2 leading-relaxed border rounded-lg sm:px-6 sm:py-4">
+                                                    <div class="flex justify-between">
+                                                        <strong>{{ $commant->patient->name }}</strong> <span
+                                                            class="text-xs text-gray-400">{{ $commant->created_at->format('M j, Y') }}</span>
+
+                                                        <div class="font-semibold">
+                                                            <x-star-rating :rating="$commant->Rating" />
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm">
+                                                        {{ $commant->Comment }}
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
                             </div>
                         </div>
 
@@ -151,11 +190,6 @@
         Livewire.on('openEditModal', () => {
             $('#editMedicineModal').modal('show');
         });
-
-
-        
-    
-</script>
+    </script>
     </script>
 @endpush
-
